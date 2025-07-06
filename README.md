@@ -62,19 +62,6 @@ DEBUG=True
 pytest
 ```
 
-## 🤝 Katkıda Bulunma
-1. Bu projeyi fork'layın
-2. Yeni bir branch oluşturun (`git checkout -b feature/yeni-ozellik`)
-3. Değişikliklerinizi commit edin (`git commit -am 'Yeni özellik eklendi'`)
-4. Branch'inize push yapın (`git push origin feature/yeni-ozellik`)
-5. Pull Request oluşturun
-
-## 📄 Lisans
-Bu proje MIT lisansı altında lisanslanmıştır - detaylar için [LICENSE](LICENSE) dosyasına bakınız.
-
-## 📞 İletişim
-Eğer herhangi bir sorunuz veya öneriniz varsa lütfen bir issue açın.
-
 ## Takım Üyeleri
 
 * Selay Yırtımcı - Product Owner
