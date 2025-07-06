@@ -44,26 +44,80 @@
     <button type="submit">Gönder</button>
   </form>
 
-  <div id="response"></div>
+  <div id="response" class="result-container" style="display: none; margin-top: 30px; padding: 20px; border-radius: 8px; background-color: #f8f9fa; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <h3>📊 Analiz Sonuçları</h3>
+    <div id="result-content"></div>
+  </div>
+
+  <style>
+    .risk-high { color: #dc3545; font-weight: bold; }
+    .risk-medium { color: #fd7e14; font-weight: bold; }
+    .risk-low { color: #28a745; font-weight: bold; }
+    .factor { margin: 10px 0; padding: 10px; background: #fff; border-radius: 5px; }
+  </style>
 
   <script>
-    document.getElementById('health-form').addEventListener('submit', async function (e) {
-      e.preventDefault();
+    function getBMICategory(bmi) {
+      if (bmi < 18.5) return '(Zayıf)';
+      if (bmi < 25) return '(Normal)';
+      if (bmi < 30) return '(Hafif Kilolu)';
+      return '(Obez)';
+    }
 
-      const formData = new FormData(this);
-      const jsonData = {};
-      formData.forEach((value, key) => {
-        jsonData[key] = value === "true" ? true : value === "false" ? false : isNaN(value) ? value : Number(value);
-      });
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('health-form');
+      if (form) {
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
 
-      const res = await fetch("/submit-health-data", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(jsonData)
-      });
+          const formData = new FormData(this);
+          const jsonData = {};
+          formData.forEach((value, key) => {
+            jsonData[key] = value === "true" ? true : 
+                          value === "false" ? false : 
+                          isNaN(value) ? value : Number(value);
+          });
 
-      const result = await res.json();
-      document.getElementById("response").innerText = "Yanıt: " + JSON.stringify(result);
+          try {
+            const res = await fetch("/api/analyze", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(jsonData)
+            });
+
+            const result = await res.json();
+            const responseDiv = document.getElementById("response");
+            const resultContent = document.getElementById("result-content");
+            
+            let riskClass = '';
+            if (result.risk_category.includes('Yüksek')) riskClass = 'risk-high';
+            else if (result.risk_category.includes('Orta')) riskClass = 'risk-medium';
+            else riskClass = 'risk-low';
+            
+            resultContent.innerHTML = `
+              <div class="${riskClass}">
+                <p>🔍 <strong>Risk Değerlendirmesi:</strong> ${result.risk_category}</p>
+                <p>📈 <strong>Risk Puanı:</strong> ${result.risk_score}/100</p>
+              </div>
+              <div class="factor">
+                <p>📋 <strong>Etkileyen Faktörler:</strong></p>
+                <ul>
+                  <li>Yaş Faktörü: ${(result.factors.age_factor * 100).toFixed(0)}%</li>
+                  <li>Vücut Kitle İndeksi: ${result.factors.bmi.toFixed(1)} ${getBMICategory(result.factors.bmi)}</li>
+                  <li>Kolesterol Oranı (LDL/HDL): ${result.factors.cholesterol_ratio.toFixed(1)}</li>
+                </ul>
+              </div>
+              <p>📝 <strong>Kayıt No:</strong> #${result.record_id}</p>
+            `;
+            
+            responseDiv.style.display = 'block';
+            responseDiv.scrollIntoView({ behavior: 'smooth' });
+          } catch (error) {
+            console.error('Hata oluştu:', error);
+            alert('İşlem sırasında bir hata oluştu. Lütfen tekrar deneyin.');
+          }
+        });
+      }
     });
   </script>
 </body>
