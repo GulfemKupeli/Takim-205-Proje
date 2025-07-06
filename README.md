@@ -1,5 +1,80 @@
 # Kalp Sağlığı Risk Tahmin Sistemi
 
+## 🚀 Hızlı Başlangıç
+
+### Gereksinimler
+- Python 3.7+
+- pip (Python paket yöneticisi)
+
+### Kurulum
+
+1. Projeyi klonlayın:
+   ```bash
+   git clone https://github.com/GulfemKupeli/Takim-205-Proje.git
+   cd Takim-205-Proje
+   ```
+
+2. Gerekli kütüphaneleri yükleyin:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Uygulamayı başlatın:
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+4. Tarayıcınızda açın:
+   - API Dokümantasyonu: http://127.0.0.1:8000/docs
+   - Varsayılan Arayüz: http://127.0.0.1:8000
+
+## 📚 API Dokümantasyonu
+
+### Endpoint'ler
+
+#### 1. Yeni Analiz Yap
+- **URL**: `/api/analyze`
+- **Method**: `POST`
+- **Açıklama**: Yeni bir kalp sağlığı analizi yapar
+
+#### 2. Tüm Kayıtları Listele
+- **URL**: `/api/records`
+- **Method**: `GET`
+- **Açıklama**: Tüm analiz kayıtlarını listeler
+
+#### 3. Tek Bir Kaydı Getir
+- **URL**: `/api/records/{record_id}`
+- **Method**: `GET`
+- **Açıklama**: Belirli bir analiz kaydının detaylarını getirir
+
+## 🛠 Geliştirme
+
+### Ortam Değişkenleri
+`.env` dosyası oluşturarak aşağıdaki değişkenleri ayarlayabilirsiniz:
+```
+DATABASE_URL=sqlite:///./kalp_sagligi.db
+DEBUG=True
+```
+
+### Test
+```bash
+# Testleri çalıştır
+pytest
+```
+
+## 🤝 Katkıda Bulunma
+1. Bu projeyi fork'layın
+2. Yeni bir branch oluşturun (`git checkout -b feature/yeni-ozellik`)
+3. Değişikliklerinizi commit edin (`git commit -am 'Yeni özellik eklendi'`)
+4. Branch'inize push yapın (`git push origin feature/yeni-ozellik`)
+5. Pull Request oluşturun
+
+## 📄 Lisans
+Bu proje MIT lisansı altında lisanslanmıştır - detaylar için [LICENSE](LICENSE) dosyasına bakınız.
+
+## 📞 İletişim
+Eğer herhangi bir sorunuz veya öneriniz varsa lütfen bir issue açın.
+
 ## Takım Üyeleri
 
 * Selay Yırtımcı - Product Owner
