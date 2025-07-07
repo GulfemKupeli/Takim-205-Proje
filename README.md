@@ -138,6 +138,9 @@ Proje boyunca tamamlanması gereken toplam puan **70'dir**.
 ## Sprint board update
 <img width="865" height="631" alt="Image" src="https://github.com/user-attachments/assets/98765ecf-eccb-417d-a17a-32570a77c121" />
 
+## Ürün fotoğrafı
+![Image](https://github.com/user-attachments/assets/0281fd92-5a09-484a-88c7-d68efafa66e4)
+
 ## Sprint Review
 
 Gerçekleşen toplantıda şu ana kadar yapılanlar üzerinden genel bir değerlendirme yapıldı. Projede ihtiyaç duyulacak altyapıların numuneleri üzerinden hangi noktaların geliştirilmesi gerektiği gözden geçirildi.
