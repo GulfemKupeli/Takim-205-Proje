@@ -133,7 +133,7 @@ Proje boyunca tamamlanması gereken toplam puan **70'dir**.
 
 ## Daily Scrum
 
-* Whatsapp üzerinden iletişim sağlanmıştır.
+* Whatsapp üzerinden iletişim sağlanmıştır. [Whattsapp SS](https://imgur.com/a/daily-scrum-q37h1rj)
 
 ## Sprint board update
 <img width="865" height="631" alt="Image" src="https://github.com/user-attachments/assets/98765ecf-eccb-417d-a17a-32570a77c121" />
