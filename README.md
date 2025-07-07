@@ -108,8 +108,8 @@ Girilen tüm veriler, hem kullanıcı arayüzünde (frontend) anında geri bildi
 * **Sağlık Profesyonelleri (Dolaylı olarak):** Doktorlar, diyetisyenler ve sağlık koçları gibi profesyoneller, hastalarına veya danışanlarına daha iyi hizmet sunmak için bu tür bir aracı bir ön bilgi kaynağı veya destekleyici bir araç olarak kullanılabilir. Proje, profesyonellerin önleyici tedbirler almasını kolaylaştırarak hasta yönetiminde proaktif bir yaklaşım benimsemelerine yardımcı olabilir.
 * **7/24 Sağlık Takibi Arayanlar:** Geleneksel sağlık hizmetlerine ek olarak, sürekli erişilebilir bir risk analizi ve yaşam tarzı rehberliği arayan kişiler.
 
-# Product backloglar
-[Kalp Krizi Risk Tahmini Uygulaması](https://trello.com/invite/b/686640d8a2c4224f0b593859/ATTI209ccfdb3a91d40d26b764babd0083e3EB0389C8/kalp-krizi-risk-tahmini-uygulamasige)
+
+
 
 # Sprint 1 Raporu
 
@@ -127,15 +127,20 @@ Proje boyunca tamamlanması gereken toplam puan **70'dir**.
 
 10
 
+## Product Backlogs
+
+[Kalp Krizi Risk Tahmini Uygulaması](https://trello.com/invite/b/686640d8a2c4224f0b593859/ATTI209ccfdb3a91d40d26b764babd0083e3EB0389C8/kalp-krizi-risk-tahmini-uygulamasige)
+
 ## Daily Scrum
 
 * Whatsapp üzerinden iletişim sağlanmıştır.
 
-  
+## Sprint board update
+<img width="865" height="631" alt="Image" src="https://github.com/user-attachments/assets/98765ecf-eccb-417d-a17a-32570a77c121" />
 
 ## Sprint Review
 
-Gerçekleşen toplantıda şu ana kadar yapılanlar üzerinden genel bir değerlendirme yapıldı. Projede ihtiyaç duyulacak altyapıların numuneleri üzerinden nelerin geliştirilmesi gerektiği gözden geçirildi.
+Gerçekleşen toplantıda şu ana kadar yapılanlar üzerinden genel bir değerlendirme yapıldı. Projede ihtiyaç duyulacak altyapıların numuneleri üzerinden hangi noktaların geliştirilmesi gerektiği gözden geçirildi.
 
 ## Sprint Retrospective
 
