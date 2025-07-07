@@ -139,7 +139,7 @@ Proje boyunca tamamlanması gereken toplam puan **70'dir**.
 <img width="865" height="631" alt="Image" src="https://github.com/user-attachments/assets/98765ecf-eccb-417d-a17a-32570a77c121" />
 
 ## Ürün fotoğrafı
-![Image](https://github.com/user-attachments/assets/0281fd92-5a09-484a-88c7-d68efafa66e4)
+<img width="665" height="1231" alt="Image" src="https://github.com/user-attachments/assets/0281fd92-5a09-484a-88c7-d68efafa66e4" />
 
 ## Sprint Review
 
