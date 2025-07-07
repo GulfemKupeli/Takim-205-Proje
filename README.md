@@ -107,3 +107,43 @@ Girilen tüm veriler, hem kullanıcı arayüzünde (frontend) anında geri bildi
 * **Sağlık Bilincine Sahip Bireyler:** Kendi sağlıklarını aktif olarak yönetmek isteyen, düzenli kontrollerini yaptıran ve yaşam kalitelerini artırmak için kişiselleştirilmiş sağlık önerileri arayan herkes.
 * **Sağlık Profesyonelleri (Dolaylı olarak):** Doktorlar, diyetisyenler ve sağlık koçları gibi profesyoneller, hastalarına veya danışanlarına daha iyi hizmet sunmak için bu tür bir aracı bir ön bilgi kaynağı veya destekleyici bir araç olarak kullanılabilir. Proje, profesyonellerin önleyici tedbirler almasını kolaylaştırarak hasta yönetiminde proaktif bir yaklaşım benimsemelerine yardımcı olabilir.
 * **7/24 Sağlık Takibi Arayanlar:** Geleneksel sağlık hizmetlerine ek olarak, sürekli erişilebilir bir risk analizi ve yaşam tarzı rehberliği arayan kişiler.
+
+# Product backloglar
+[Kalp Krizi Risk Tahmini Uygulaması](https://trello.com/invite/b/686640d8a2c4224f0b593859/ATTI209ccfdb3a91d40d26b764babd0083e3EB0389C8/kalp-krizi-risk-tahmini-uygulamasige)
+
+# Sprint 1 Raporu
+
+## Puan Tamamlama Mantığı
+
+Takımın geç toplanması ve fikre karar verme noktasında kaybedilen zamanlar göz önünde bulundurularak ilk sprint için **10 puan** hedeflenmiştir.
+
+İkinci sprint'te makine öğrenmesi (ML) algoritmalarına uygun veri toplanması, algoritmaların eğitimi ve ekstra olarak API entegrasyonu planlandığından dolayı puan **30 olarak belirlenmiştir**.
+
+Son sprint'te ise Model optimizasyonu ve UI/UX iyileştirmeleri planlanmakta olup puan yine **30 olarak belirlenmiştir**.
+
+Proje boyunca tamamlanması gereken toplam puan **70'dir**.
+
+## Sprint İçi Beklenen Puan
+
+10
+
+## Daily Scrum
+
+* Whatsapp üzerinden iletişim sağlanmıştır.
+
+  
+
+## Sprint Review
+
+Gerçekleşen toplantıda şu ana kadar yapılanlar üzerinden genel bir değerlendirme yapıldı. Projede ihtiyaç duyulacak altyapıların numuneleri üzerinden nelerin geliştirilmesi gerektiği gözden geçirildi.
+
+## Sprint Retrospective
+
+Grubun 3'e bölünmesi kararlaştırıldı:
+
+* **1. Grup:** ML entegrasyonu üzerine çalışacak (veri setlerinin keşfi, EDA, Model eğitimi).
+    * Üyeler: Cevdet Satar, Muhammet Yasir Kılıç
+* **2. Grup:** Yapay zeka API entegrasyonu ve veritabanı üzerine çalışacak.
+    * Üyeler: Selay Yırtımcı, Döne Beyza Kurt
+* **3. Grup:** UI/UX dizaynı ile ilgilenecek.
+    * Üyeler: Gülfem Küpeli
