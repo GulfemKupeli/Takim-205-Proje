@@ -201,7 +201,7 @@ Kullanıcı verilerinin kalıcı şekilde saklanmasına yönelik model şeması 
 
 Gelecek sprint’te kullanıcı geçmişi ve analiz sonuçlarının saklanması sağlanacak.
 
-##👥 Ekip ve Görev Dağılımı
+##  👥 Ekip ve Görev Dağılımı
 Grup No	Görev Tanımı	Üyeler
 1	ML entegrasyonu ve veri analizi	Cevdet Satar, Muhammet Yasir Kılıç
 2	Yapay Zeka API’leri ve veritabanı bağlantısı	Selay Yırtımcı, Döne Beyza Kurt
@@ -219,26 +219,26 @@ ML modelinin backend’e tam entegrasyonu
 
 Öneri sisteminin temel yapısının başlatılması
 
-##📆 Daily Scrum Süreci
+## 📆 Daily Scrum Süreci
 WhatsApp üzerinden her gün takım içi iletişim sağlandı.
 
 Durum güncellemeleri, sorun bildirimi ve planlama aksatılmadan yürütüldü.
 
-##✅ Sprint Review
+## ✅ Sprint Review
 Uygulama formu başarıyla çalıştı ve backend ile entegre oldu.
 
 Risk hesaplama mekanizması test edilip çalışır hale getirildi.
 
 Arayüz geri bildirimlere göre daha sezgisel hale getirildi.
 
-##🔄 Sprint Retrospective
+## 🔄 Sprint Retrospective
 UI geliştirmesi beklenenden fazla zaman aldı fakat projenin temeli sağlandı.
 
 Backend ve veri iletimi sorunsuz tamamlandığı için Sprint 3'te ML modeline daha fazla odaklanılabilecek.
 
 Erken veritabanı bağlantısı, ileride yapılacak kullanıcı takip sistemine zemin hazırladı.
 
-##📌 Sprint 3 İçin Planlananlar
+## 📌 Sprint 3 İçin Planlananlar
 Makine öğrenmesi modeli entegrasyonu (sklearn veya tensorflow kullanımı).
 
 Kullanıcıya özel risk geçmişi ve görselleştirme ekranları.
