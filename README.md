@@ -178,6 +178,7 @@ Alkol Kullanımı
 Fiziksel Aktivite Düzeyi
 
 Kullanıcıdan alınan veriler, FastAPI backend'ine başarılı şekilde gönderiliyor.
+<img width="666" height="936" alt="image" src="https://github.com/user-attachments/assets/f4ed4a5e-2fb0-4327-b76c-e671aaf98015" />
 
 🔹 Backend Geliştirmeleri
 /api/analyze endpoint’i geliştirildi.
