@@ -157,7 +157,7 @@ Grubun 3'e bölünmesi kararlaştırıldı:
     * Üyeler: Gülfem Küpeli
  
 
-🚀 Sprint 2 Raporu – Kalp Hastalığı Risk Tahmin Uygulaması
+# Sprint 2 Raporu 🚀 – Kalp Hastalığı Risk Tahmin Uygulaması
 ✅ Sprint Hedefi
 Bu sprintte, kullanıcıdan sağlık ve yaşam tarzı verilerini alan kullanıcı arayüzünün oluşturulması, bu verilerin backend'e iletilmesi ve basit bir kurala dayalı kalp hastalığı risk tahmin algoritmasının çalışır hale getirilmesi hedeflenmiştir.
 
