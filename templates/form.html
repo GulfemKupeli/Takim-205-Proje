@@ -2,123 +2,81 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Kalp Hastalığı Risk Formu</title>
+  <title>Kalp Hastalığı Riski Tahmini</title>
   <link rel="stylesheet" href="/static/style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-  <h2>Kalp Hastalığı Riski Tahmin Formu</h2>
+  <h2><span class="material-icons" style="vertical-align: middle;">favorite</span> Kalp Hastalığı Riski Tahmini</h2>
+
   <form id="health-form">
-    <label>Yaş: <input type="number" name="age" required></label><br>
-    <label>Cinsiyet:
+    <label><span class="material-icons">calendar_today</span> Yaş:
+      <input type="number" name="age" required>
+    </label>
+
+    <label><span class="material-icons">wc</span> Cinsiyet:
       <select name="gender">
         <option value="male">Erkek</option>
         <option value="female">Kadın</option>
       </select>
-    </label><br>
-    <label>Kilo (kg): <input type="number" step="0.1" name="weight" required></label><br>
-    <label>Boy (cm): <input type="number" step="0.1" name="height" required></label><br>
-    <label>Sistolik Tansiyon: <input type="number" name="systolic_bp" required></label><br>
-    <label>Diyastolik Tansiyon: <input type="number" name="diastolic_bp" required></label><br>
-    <label>Kolesterol LDL: <input type="number" step="0.1" name="cholesterol_ldl" required></label><br>
-    <label>Kolesterol HDL: <input type="number" step="0.1" name="cholesterol_hdl" required></label><br>
-    <label>Kolesterol Total: <input type="number" step="0.1" name="cholesterol_total" required></label><br>
-    <label>Sigara Kullanımı:
+    </label>
+
+    <label><span class="material-icons">monitor_weight</span> Kilo (kg):
+      <input type="number" step="0.1" name="weight" required>
+    </label>
+
+    <label><span class="material-icons">height</span> Boy (cm):
+      <input type="number" step="0.1" name="height" required>
+    </label>
+
+    <label><span class="material-icons">favorite</span> Sistolik Tansiyon:
+      <input type="number" name="systolic_bp" required>
+    </label>
+
+    <label><span class="material-icons">favorite_border</span> Diyastolik Tansiyon:
+      <input type="number" name="diastolic_bp" required>
+    </label>
+
+    <label><span class="material-icons">science</span> Kolesterol LDL:
+      <input type="number" step="0.1" name="cholesterol_ldl" required>
+    </label>
+
+    <label><span class="material-icons">science</span> Kolesterol HDL:
+      <input type="number" step="0.1" name="cholesterol_hdl" required>
+    </label>
+
+    <label><span class="material-icons">science</span> Kolesterol Total:
+      <input type="number" step="0.1" name="cholesterol_total" required>
+    </label>
+
+    <label><span class="material-icons">smoking_rooms</span> Sigara Kullanımı:
       <select name="smoker">
         <option value="true">Evet</option>
         <option value="false">Hayır</option>
       </select>
-    </label><br>
-    <label>Alkol Kullanımı:
+    </label>
+
+    <label><span class="material-icons">local_bar</span> Alkol Kullanımı:
       <select name="alcohol">
         <option value="true">Evet</option>
         <option value="false">Hayır</option>
       </select>
-    </label><br>
-    <label>Fiziksel Aktivite:
+    </label>
+
+    <label><span class="material-icons">directions_run</span> Fiziksel Aktivite:
       <select name="physical_activity">
         <option value="low">Düşük</option>
         <option value="moderate">Orta</option>
         <option value="high">Yüksek</option>
       </select>
-    </label><br>
-    <button type="submit">Gönder</button>
+    </label>
+
+    <button type="submit"><span class="material-icons" style="vertical-align: middle;">insights</span> Analiz Et</button>
   </form>
 
-  <div id="response" class="result-container" style="display: none; margin-top: 30px; padding: 20px; border-radius: 8px; background-color: #f8f9fa; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-    <h3>📊 Analiz Sonuçları</h3>
+  <div id="response">
+    <h3><span class="material-icons">bar_chart</span> Analiz Sonuçları</h3>
     <div id="result-content"></div>
   </div>
-
-  <style>
-    .risk-high { color: #dc3545; font-weight: bold; }
-    .risk-medium { color: #fd7e14; font-weight: bold; }
-    .risk-low { color: #28a745; font-weight: bold; }
-    .factor { margin: 10px 0; padding: 10px; background: #fff; border-radius: 5px; }
-  </style>
-
-  <script>
-    function getBMICategory(bmi) {
-      if (bmi < 18.5) return '(Zayıf)';
-      if (bmi < 25) return '(Normal)';
-      if (bmi < 30) return '(Hafif Kilolu)';
-      return '(Obez)';
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const form = document.getElementById('health-form');
-      if (form) {
-        form.addEventListener('submit', async function(e) {
-          e.preventDefault();
-
-          const formData = new FormData(this);
-          const jsonData = {};
-          formData.forEach((value, key) => {
-            jsonData[key] = value === "true" ? true : 
-                          value === "false" ? false : 
-                          isNaN(value) ? value : Number(value);
-          });
-
-          try {
-            const res = await fetch("/api/analyze", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(jsonData)
-            });
-
-            const result = await res.json();
-            const responseDiv = document.getElementById("response");
-            const resultContent = document.getElementById("result-content");
-            
-            let riskClass = '';
-            if (result.risk_category.includes('Yüksek')) riskClass = 'risk-high';
-            else if (result.risk_category.includes('Orta')) riskClass = 'risk-medium';
-            else riskClass = 'risk-low';
-            
-            resultContent.innerHTML = `
-              <div class="${riskClass}">
-                <p>🔍 <strong>Risk Değerlendirmesi:</strong> ${result.risk_category}</p>
-                <p>📈 <strong>Risk Puanı:</strong> ${result.risk_score}/100</p>
-              </div>
-              <div class="factor">
-                <p>📋 <strong>Etkileyen Faktörler:</strong></p>
-                <ul>
-                  <li>Yaş Faktörü: ${(result.factors.age_factor * 100).toFixed(0)}%</li>
-                  <li>Vücut Kitle İndeksi: ${result.factors.bmi.toFixed(1)} ${getBMICategory(result.factors.bmi)}</li>
-                  <li>Kolesterol Oranı (LDL/HDL): ${result.factors.cholesterol_ratio.toFixed(1)}</li>
-                </ul>
-              </div>
-              <p>📝 <strong>Kayıt No:</strong> #${result.record_id}</p>
-            `;
-            
-            responseDiv.style.display = 'block';
-            responseDiv.scrollIntoView({ behavior: 'smooth' });
-          } catch (error) {
-            console.error('Hata oluştu:', error);
-            alert('İşlem sırasında bir hata oluştu. Lütfen tekrar deneyin.');
-          }
-        });
-      }
-    });
-  </script>
 </body>
 </html>
