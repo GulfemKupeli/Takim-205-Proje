@@ -157,17 +157,22 @@ Grubun 3'e bölünmesi kararlaştırıldı:
     * Üyeler: Gülfem Küpeli
  
 
-# Sprint 2 Raporu 🚀 – Kalp Hastalığı Risk Tahmin Uygulaması
-✅ Sprint Hedefi
-Bu sprintte, kullanıcıdan sağlık ve yaşam tarzı verilerini alan kullanıcı arayüzünün oluşturulması, bu verilerin backend'e iletilmesi ve basit bir kurala dayalı kalp hastalığı risk tahmin algoritmasının çalışır hale getirilmesi hedeflenmiştir.
+# 🩺 Sprint 2 Raporu – Kalp Hastalığı Risk Tahmin Uygulaması
+🎯 Sprint Hedefi
+Sprint 2'nin ana amacı, kullanıcıdan sağlık ve yaşam tarzı verilerinin alındığı bir web arayüzü geliştirmek, bu verileri FastAPI backend'ine aktarmak ve kurala dayalı basit bir kalp hastalığı risk tahmin sistemi oluşturmaktı.
 
-📌 Tamamlanan İşler
+✅ Tamamlanan Başlıca Geliştirmeler
 🔹 Kullanıcı Arayüzü (UI)
-Modern ve kullanıcı dostu bir form tasarlandı (HTML + CSS).
+Modern ve kullanıcı dostu bir HTML/CSS tabanlı form tasarlandı.
 
-Form üzerinden şu veriler alınabilir:
+Kullanıcıdan alınan veriler form aracılığıyla backend’e gönderilebiliyor.
 
-Yaş, Cinsiyet, Kilo, Boy, Sistolik/Diyastolik Tansiyon
+Responsive (mobil uyumlu) ve sezgisel bir tasarım oluşturuldu.
+
+✏️ Alınan Bilgiler:
+Yaş, Cinsiyet, Kilo, Boy
+
+Tansiyon (Sistolik / Diyastolik)
 
 Toplam Kolesterol
 
@@ -177,54 +182,67 @@ Alkol Kullanımı
 
 Fiziksel Aktivite Düzeyi
 
-Kullanıcıdan alınan veriler, FastAPI backend'ine başarılı şekilde gönderiliyor.
-<img width="666" height="936" alt="image" src="https://github.com/user-attachments/assets/f4ed4a5e-2fb0-4327-b76c-e671aaf98015" />
+<p align="center"> <img width="300" alt="form-ss" src="https://github.com/user-attachments/assets/f4ed4a5e-2fb0-4327-b76c-e671aaf98015" /> </p>
+🔹 Backend ve API Geliştirmeleri (FastAPI)
+/api/analyze endpoint'i geliştirildi.
 
-🔹 Backend Geliştirmeleri
-/api/analyze endpoint’i geliştirildi.
+Kullanıcının gönderdiği veriler alınarak işleniyor.
 
-Basit kural tabanlı bir risk hesaplama mantığı eklendi:
+Kurala dayalı risk hesaplama sistemi oluşturuldu:
 
-Yüksek tansiyon, kolesterol, sigara kullanımı vb. faktörler göz önüne alınarak "Düşük", "Orta" ve "Yüksek" risk düzeyleri belirleniyor.
+Yüksek tansiyon, yüksek kolesterol, sigara/alkol kullanımı gibi durumlara göre risk belirleniyor.
 
-Kullanıcının girdiği verilere göre risk sonucu frontend’e dönüyor ve kullanıcıya görsel olarak gösteriliyor.
+Risk düzeyleri: Düşük, Orta, Yüksek
 
-🔹 Veritabanı
-SQLite veritabanı bağlantısı ve temel model yapısı hazırlandı.
+🔹 Veritabanı Altyapısı
+SQLite ile temel veritabanı bağlantısı kuruldu.
 
-Gelecek sprint için analiz sonuçlarını kalıcı olarak saklayacak sistem altyapısı hazırlandı.
+Kullanıcı verilerinin kalıcı şekilde saklanmasına yönelik model şeması hazırlandı.
 
-🔍 Sprint İçi Ekip Yapısı ve Görev Dağılımı
-Grup	Görev	Üyeler
-1	ML entegrasyonu (veri analizi, model araştırma)	Cevdet Satar, Muhammet Yasir Kılıç
-2	Yapay Zeka API’leri ve veritabanı bağlantıları	Selay Yırtımcı, Döne Beyza Kurt
+Gelecek sprint’te kullanıcı geçmişi ve analiz sonuçlarının saklanması sağlanacak.
+
+##👥 Ekip ve Görev Dağılımı
+Grup No	Görev Tanımı	Üyeler
+1	ML entegrasyonu ve veri analizi	Cevdet Satar, Muhammet Yasir Kılıç
+2	Yapay Zeka API’leri ve veritabanı bağlantısı	Selay Yırtımcı, Döne Beyza Kurt
 3	UI/UX tasarımı ve form veri akışı	Gülfem Küpeli
 
-🛠 Sprint Detayları
-🎯 Puan Tamamlama Mantığı
-Sprint 2 hedefi: 30 puan
+##🔎 Sprint Detayları
+🧮 Puan Tamamlama Durumu
+Hedeflenen puan: 30
 
-Gerçekleşen: 28/30 puan
+Gerçekleşen: 28/30
 
-Eksik kalan 2 puanlık iş:
+Eksik kalan işler:
 
-Makine öğrenmesi modelinin tam entegrasyonu
+ML modelinin backend’e tam entegrasyonu
 
-Diyet/egzersiz öneri sisteminin başlanması
+Öneri sisteminin temel yapısının başlatılması
 
-📅 Daily Scrum
-WhatsApp üzerinden her gün iletişim kuruldu.
+##📆 Daily Scrum Süreci
+WhatsApp üzerinden her gün takım içi iletişim sağlandı.
 
-Görev dağılımı, ilerleme raporları ve sorun bildirimleri düzenli olarak paylaşıldı.
+Durum güncellemeleri, sorun bildirimi ve planlama aksatılmadan yürütüldü.
 
-📈 Sprint Review
-Uygulama test edildi ve formun çalışması başarıyla gösterildi.
+##✅ Sprint Review
+Uygulama formu başarıyla çalıştı ve backend ile entegre oldu.
 
-Backend ile bağlantı test edildi, risk tahmini sorunsuz döndü.
+Risk hesaplama mekanizması test edilip çalışır hale getirildi.
 
-UI üzerinde yapılabilecek küçük iyileştirmeler not alındı.
+Arayüz geri bildirimlere göre daha sezgisel hale getirildi.
 
-🔁 Sprint Retrospective
-Arayüz geliştirmesinin zaman aldığını, ancak önemli bir temel oluşturduğunu fark ettik.
+##🔄 Sprint Retrospective
+UI geliştirmesi beklenenden fazla zaman aldı fakat projenin temeli sağlandı.
 
-Veritabanı entegrasyonunun erken tamamlanmasının sonraki sprintlerde zaman kazandıracağı düşünüldü.
+Backend ve veri iletimi sorunsuz tamamlandığı için Sprint 3'te ML modeline daha fazla odaklanılabilecek.
+
+Erken veritabanı bağlantısı, ileride yapılacak kullanıcı takip sistemine zemin hazırladı.
+
+##📌 Sprint 3 İçin Planlananlar
+Makine öğrenmesi modeli entegrasyonu (sklearn veya tensorflow kullanımı).
+
+Kullanıcıya özel risk geçmişi ve görselleştirme ekranları.
+
+Öneri sisteminin geliştirilmesi (beslenme, egzersiz vb.).
+
+Risk skorlarının grafiklerle desteklenmesi.
