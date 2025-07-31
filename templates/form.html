@@ -2,69 +2,81 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Kalp Hastalığı Risk Formu</title>
+  <title>Kalp Hastalığı Riski Tahmini</title>
   <link rel="stylesheet" href="/static/style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-  <h2>Kalp Hastalığı Riski Tahmin Formu</h2>
+  <h2><span class="material-icons" style="vertical-align: middle;">favorite</span> Kalp Hastalığı Riski Tahmini</h2>
+
   <form id="health-form">
-    <label>Yaş: <input type="number" name="age" required></label><br>
-    <label>Cinsiyet:
+    <label><span class="material-icons">calendar_today</span> Yaş:
+      <input type="number" name="age" required>
+    </label>
+
+    <label><span class="material-icons">wc</span> Cinsiyet:
       <select name="gender">
         <option value="male">Erkek</option>
         <option value="female">Kadın</option>
       </select>
-    </label><br>
-    <label>Kilo (kg): <input type="number" step="0.1" name="weight" required></label><br>
-    <label>Boy (cm): <input type="number" step="0.1" name="height" required></label><br>
-    <label>Sistolik Tansiyon: <input type="number" name="systolic_bp" required></label><br>
-    <label>Diyastolik Tansiyon: <input type="number" name="diastolic_bp" required></label><br>
-    <label>Kolesterol LDL: <input type="number" step="0.1" name="cholesterol_ldl" required></label><br>
-    <label>Kolesterol HDL: <input type="number" step="0.1" name="cholesterol_hdl" required></label><br>
-    <label>Kolesterol Total: <input type="number" step="0.1" name="cholesterol_total" required></label><br>
-    <label>Sigara Kullanımı:
+    </label>
+
+    <label><span class="material-icons">monitor_weight</span> Kilo (kg):
+      <input type="number" step="0.1" name="weight" required>
+    </label>
+
+    <label><span class="material-icons">height</span> Boy (cm):
+      <input type="number" step="0.1" name="height" required>
+    </label>
+
+    <label><span class="material-icons">favorite</span> Sistolik Tansiyon:
+      <input type="number" name="systolic_bp" required>
+    </label>
+
+    <label><span class="material-icons">favorite_border</span> Diyastolik Tansiyon:
+      <input type="number" name="diastolic_bp" required>
+    </label>
+
+    <label><span class="material-icons">science</span> Kolesterol LDL:
+      <input type="number" step="0.1" name="cholesterol_ldl" required>
+    </label>
+
+    <label><span class="material-icons">science</span> Kolesterol HDL:
+      <input type="number" step="0.1" name="cholesterol_hdl" required>
+    </label>
+
+    <label><span class="material-icons">science</span> Kolesterol Total:
+      <input type="number" step="0.1" name="cholesterol_total" required>
+    </label>
+
+    <label><span class="material-icons">smoking_rooms</span> Sigara Kullanımı:
       <select name="smoker">
         <option value="true">Evet</option>
         <option value="false">Hayır</option>
       </select>
-    </label><br>
-    <label>Alkol Kullanımı:
+    </label>
+
+    <label><span class="material-icons">local_bar</span> Alkol Kullanımı:
       <select name="alcohol">
         <option value="true">Evet</option>
         <option value="false">Hayır</option>
       </select>
-    </label><br>
-    <label>Fiziksel Aktivite:
+    </label>
+
+    <label><span class="material-icons">directions_run</span> Fiziksel Aktivite:
       <select name="physical_activity">
         <option value="low">Düşük</option>
         <option value="moderate">Orta</option>
         <option value="high">Yüksek</option>
       </select>
-    </label><br>
-    <button type="submit">Gönder</button>
+    </label>
+
+    <button type="submit"><span class="material-icons" style="vertical-align: middle;">insights</span> Analiz Et</button>
   </form>
 
-  <div id="response"></div>
-
-  <script>
-    document.getElementById('health-form').addEventListener('submit', async function (e) {
-      e.preventDefault();
-
-      const formData = new FormData(this);
-      const jsonData = {};
-      formData.forEach((value, key) => {
-        jsonData[key] = value === "true" ? true : value === "false" ? false : isNaN(value) ? value : Number(value);
-      });
-
-      const res = await fetch("/submit-health-data", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(jsonData)
-      });
-
-      const result = await res.json();
-      document.getElementById("response").innerText = "Yanıt: " + JSON.stringify(result);
-    });
-  </script>
+  <div id="response">
+    <h3><span class="material-icons">bar_chart</span> Analiz Sonuçları</h3>
+    <div id="result-content"></div>
+  </div>
 </body>
 </html>
