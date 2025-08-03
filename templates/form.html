@@ -1,82 +1,249 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Kalp Hastalığı Riski Tahmini</title>
-  <link rel="stylesheet" href="/static/style.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalp Sağlığı Analizi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input:focus, select:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h2><span class="material-icons" style="vertical-align: middle;">favorite</span> Kalp Hastalığı Riski Tahmini</h2>
+    <div class="form-container">
+        <h1>Kalp Sağlığı Risk Analizi</h1>
 
-  <form id="health-form">
-    <label><span class="material-icons">calendar_today</span> Yaş:
-      <input type="number" name="age" required>
-    </label>
+        <form id="health-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="age">Yaş:</label>
+                    <input type="number" id="age" name="age" min="1" max="120" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Cinsiyet:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Seçiniz</option>
+                        <option value="male">Erkek</option>
+                        <option value="female">Kadın</option>
+                    </select>
+                </div>
+            </div>
 
-    <label><span class="material-icons">wc</span> Cinsiyet:
-      <select name="gender">
-        <option value="male">Erkek</option>
-        <option value="female">Kadın</option>
-      </select>
-    </label>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="weight">Kilo (kg):</label>
+                    <input type="number" id="weight" name="weight" step="0.1" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="height">Boy (cm):</label>
+                    <input type="number" id="height" name="height" min="1" required>
+                </div>
+            </div>
 
-    <label><span class="material-icons">monitor_weight</span> Kilo (kg):
-      <input type="number" step="0.1" name="weight" required>
-    </label>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="systolic_bp">Sistolik Tansiyon:</label>
+                    <input type="number" id="systolic_bp" name="systolic_bp" min="70" max="250" required>
+                </div>
+                <div class="form-group">
+                    <label for="diastolic_bp">Diyastolik Tansiyon:</label>
+                    <input type="number" id="diastolic_bp" name="diastolic_bp" min="40" max="150" required>
+                </div>
+            </div>
 
-    <label><span class="material-icons">height</span> Boy (cm):
-      <input type="number" step="0.1" name="height" required>
-    </label>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cholesterol_ldl">LDL Kolesterol:</label>
+                    <input type="number" id="cholesterol_ldl" name="cholesterol_ldl" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="cholesterol_hdl">HDL Kolesterol:</label>
+                    <input type="number" id="cholesterol_hdl" name="cholesterol_hdl" step="0.1" min="0" required>
+                </div>
+            </div>
 
-    <label><span class="material-icons">favorite</span> Sistolik Tansiyon:
-      <input type="number" name="systolic_bp" required>
-    </label>
+            <div class="form-group">
+                <label for="cholesterol_total">Toplam Kolesterol:</label>
+                <input type="number" id="cholesterol_total" name="cholesterol_total" step="0.1" min="0" required>
+            </div>
 
-    <label><span class="material-icons">favorite_border</span> Diyastolik Tansiyon:
-      <input type="number" name="diastolic_bp" required>
-    </label>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="smoker">Sigara Kullanımı:</label>
+                    <select id="smoker" name="smoker" required>
+                        <option value="">Seçiniz</option>
+                        <option value="true">Evet</option>
+                        <option value="false">Hayır</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="alcohol">Alkol Kullanımı:</label>
+                    <select id="alcohol" name="alcohol" required>
+                        <option value="">Seçiniz</option>
+                        <option value="true">Evet</option>
+                        <option value="false">Hayır</option>
+                    </select>
+                </div>
+            </div>
 
-    <label><span class="material-icons">science</span> Kolesterol LDL:
-      <input type="number" step="0.1" name="cholesterol_ldl" required>
-    </label>
+            <div class="form-group">
+                <label for="physical_activity">Fiziksel Aktivite:</label>
+                <select id="physical_activity" name="physical_activity" required>
+                    <option value="">Seçiniz</option>
+                    <option value="low">Düşük</option>
+                    <option value="moderate">Orta</option>
+                    <option value="high">Yüksek</option>
+                </select>
+            </div>
 
-    <label><span class="material-icons">science</span> Kolesterol HDL:
-      <input type="number" step="0.1" name="cholesterol_hdl" required>
-    </label>
 
-    <label><span class="material-icons">science</span> Kolesterol Total:
-      <input type="number" step="0.1" name="cholesterol_total" required>
-    </label>
+            <div class="form-group">
+                <label for="genetic_conditions">Aile Hastalık Öyküsü:</label>
+                <select id="genetic_conditions" name="genetic_conditions" required>
+                    <option value="">Seçiniz</option>
+                    <option value="true">Evet</option>
+                    <option value="false">Hayır</option>
+                </select>
+            </div>
 
-    <label><span class="material-icons">smoking_rooms</span> Sigara Kullanımı:
-      <select name="smoker">
-        <option value="true">Evet</option>
-        <option value="false">Hayır</option>
-      </select>
-    </label>
 
-    <label><span class="material-icons">local_bar</span> Alkol Kullanımı:
-      <select name="alcohol">
-        <option value="true">Evet</option>
-        <option value="false">Hayır</option>
-      </select>
-    </label>
+            <button type="submit" class="submit-btn" id="submit-btn">
+                Analiz Et
+            </button>
 
-    <label><span class="material-icons">directions_run</span> Fiziksel Aktivite:
-      <select name="physical_activity">
-        <option value="low">Düşük</option>
-        <option value="moderate">Orta</option>
-        <option value="high">Yüksek</option>
-      </select>
-    </label>
+            <div class="loading" id="loading">
+                <p>Analiz yapılıyor, lütfen bekleyin...</p>
+            </div>
+        </form>
+    </div>
 
-    <button type="submit"><span class="material-icons" style="vertical-align: middle;">insights</span> Analiz Et</button>
-  </form>
+    <script>
+        document.getElementById('health-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
 
-  <div id="response">
-    <h3><span class="material-icons">bar_chart</span> Analiz Sonuçları</h3>
-    <div id="result-content"></div>
-  </div>
+            const submitBtn = document.getElementById('submit-btn');
+            const loading = document.getElementById('loading');
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Analiz Yapılıyor...';
+            loading.style.display = 'block';
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            try {
+                // Send form data to your FastAPI endpoint
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const htmlText = await response.text();
+                    // Replace current page with results page
+                    document.open();
+                    document.write(htmlText);
+                    document.close();
+                } else {
+                    alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Bağlantı hatası. Lütfen tekrar deneyin.');
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Analiz Et';
+                loading.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

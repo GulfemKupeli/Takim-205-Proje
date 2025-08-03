@@ -1,18 +1,23 @@
-from fastapi import FastAPI, Request, Depends, HTTPException
+from fastapi import FastAPI, Request, Depends, HTTPException, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
+from jinja2.compiler import generate
 from pydantic import BaseModel, validator, Field, ValidationError
 from typing import Literal, Optional
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
 import json
 import numpy as np
+import Gemini_API
 from typing import List
 from sqlalchemy.orm import Session
 
+from Gemini_API import get_gemini_cardio_analysis
 # Veritabanı modüllerini içe aktar
-from database import HealthRecord, get_db, create_tables
+from database import HealthRecord, get_db, create_tables, engine, Base
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Kalp Sağlığı Risk Tahmin Sistemi")
 
@@ -120,6 +125,7 @@ class HealthData(BaseModel):
     cholesterol_hdl: float = Field(..., gt=0, description="HDL Kolesterol değeri")
     cholesterol_total: float = Field(..., gt=0, description="Toplam Kolesterol değeri")
 
+    genetic_conditions: bool
     smoker: bool
     alcohol: bool
     physical_activity: Literal["low", "moderate", "high"]
@@ -143,38 +149,119 @@ class HealthData(BaseModel):
         return v
 
 
-@app.get("/", response_class=HTMLResponse)
+async def form_to_pydantic(
+        age: int = Form(...),
+        gender: str = Form(...),
+        weight: float = Form(...),
+        height: float = Form(...),
+        systolic_bp: int = Form(...),
+        diastolic_bp: int = Form(...),
+        cholesterol_ldl: float = Form(...),
+        cholesterol_hdl: float = Form(...),
+        cholesterol_total: float = Form(...),
+        smoker: bool = Form(...),
+        alcohol: bool = Form(...),
+        genetic_conditions: bool = Form(...),
+        physical_activity: str = Form(...)
+) -> HealthData:
+    """Form verilerini HealthData modeline dönüştürür"""
+    try:
+        return HealthData(
+            age=age,
+            gender=gender,
+            weight=weight,
+            height=height,
+            systolic_bp=systolic_bp,
+            diastolic_bp=diastolic_bp,
+            cholesterol_ldl=cholesterol_ldl,
+            cholesterol_hdl=cholesterol_hdl,
+            cholesterol_total=cholesterol_total,
+            smoker=smoker,
+            alcohol=alcohol,
+            genetic_conditions=genetic_conditions,
+            physical_activity=physical_activity
+        )
+    except ValidationError as e:
+        # Validation hatalarını kullanıcı dostu hale getir
+        error_messages = []
+        for error in e.errors():
+            field = error['loc'][0]
+            message = error['msg']
+            error_messages.append(f"{field}: {message}")
+
+        raise HTTPException(
+            status_code=422,
+            detail=f"Form validation hatası: {'; '.join(error_messages)}"
+        )
+
+
+
+
+@app.get("/form", response_class=HTMLResponse)
 async def get_form(request: Request):
     return templates.TemplateResponse("form.html", {"request": request})
 
+@app.post("/analyze", response_class=HTMLResponse)
+async def analyze_and_render(
+        request: Request,
+        health_data: HealthData = Depends(form_to_pydantic),
+        db: Session = Depends(get_db)
+):
+    try:
+        # Pydantic model direkt dict'e dönüştürülebilir
+        data_dict = health_data.dict()
 
-@app.post("/api/analyze")
-async def submit_health_data(data: HealthData, db: Session = Depends(get_db)):
-    # Veriyi sözlüğe çevir
-    health_data = data.dict()
-    
-    # Risk skorunu hesapla
-    risk_result = calculate_heart_disease_risk(health_data)
-    
-    # Veritabanına kaydet
-    db_record = HealthRecord(
-        **health_data,
-        risk_score=risk_result["risk_score"],
-        risk_category=risk_result["risk_category"]
-    )
-    
-    db.add(db_record)
-    db.commit()
-    db.refresh(db_record)
-    
-    # Sonuçları döndür
-    return {
-        "message": "Analiz başarıyla tamamlandı", 
-        "record_id": db_record.id,
-        "risk_score": risk_result["risk_score"],
-        "risk_category": risk_result["risk_category"],
-        "factors": risk_result["factors"]
-    }
+        # Risk skorunu hesapla
+        risk_result = calculate_heart_disease_risk(data_dict)
+
+        # Gemini API'sinden analiz al
+        try:
+            gemini_analysis = get_gemini_cardio_analysis(data_dict)
+        except Exception as e:
+            print(f"Gemini API hatası: {e}")
+            gemini_analysis = "Gemini analizi alınamadı. Lütfen tekrar deneyin."
+
+        # Veritabanına kaydet - genetic_conditions'ı da eklemeyi unutma
+        db_record = HealthRecord(
+            **data_dict,
+            risk_score=risk_result["risk_score"],
+            risk_category=risk_result["risk_category"]
+        )
+        db.add(db_record)
+        db.commit()
+        db.refresh(db_record)
+
+        # Sonuçları HTML şablonuna gönder
+        context = {
+            "request": request,
+            "age": health_data.age,
+            "gender": health_data.gender,
+            "risk_score": risk_result["risk_score"],
+            "risk_category": risk_result["risk_category"],
+            "risk_factors": risk_result["factors"],
+            "gemini_analysis": gemini_analysis
+        }
+
+        return templates.TemplateResponse("results.html", context)
+
+    except ValidationError as e:
+        # Validation hatası durumunda hata sayfası göster
+        error_context = {
+            "request": request,
+            "errors": e.errors()
+        }
+        return templates.TemplateResponse("error.html", error_context, status_code=422)
+
+    except Exception as e:
+        # Genel hata durumu
+        print(f"Beklenmeyen hata: {e}")
+        error_context = {
+            "request": request,
+            "error_message": "Bir hata oluştu. Lütfen tekrar deneyin."
+        }
+        return templates.TemplateResponse("error.html", error_context, status_code=500)
+
+
 
 # Tüm kayıtları getir
 @app.get("/api/records", response_model=List[dict])

@@ -1,3 +1,5 @@
+from xmlrpc.client import boolean
+
 from sqlalchemy import create_engine, Column, Integer, String, Float, Boolean, DateTime, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -33,6 +35,7 @@ class HealthRecord(Base):
     smoker = Column(Boolean, default=False)
     alcohol = Column(Boolean, default=False)
     physical_activity = Column(String, nullable=False)
+    genetic_conditions= Column(Boolean,default=False)
     risk_score = Column(Float, nullable=True)
     risk_category = Column(String, nullable=True)
     created_at = Column(DateTime, default=func.now())
